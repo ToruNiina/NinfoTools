@@ -17,7 +17,7 @@ add_definitions("-std=c++11 -Wall")
 add_executable(tester
     NinfoTester.cpp ${HPP_FILES})
 
- add_executable(split
+ add_executable(nsplit
     NinfoSplitter.cpp ${HPP_FILES})
 
 # add_executable(join

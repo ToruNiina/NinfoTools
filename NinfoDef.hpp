@@ -12,7 +12,8 @@ namespace ninf
          N_AICG13,
          N_AICGDIH,
          N_CONTACT,
-         NO_BLOCK
+         NO_BLOCK,
+         N_BASE
     };
 
     enum LineType

@@ -24,23 +24,51 @@ namespace ninf
         int get_index() const {return iba;}
         int get_iunit1() const {return iunit1;}
         int get_iunit2() const {return iunit2;}
-        std::vector<int> get_imps() const
-        {
-            std::vector<int> retval{imp1, imp2, imp3};
-            return retval;
-        }
-        std::vector<int> get_impuns() const
-        {
-            std::vector<int> retval{imp1un, imp2un, imp3un};
-            return retval;
-        }
-        std::vector<double> get_coefs() const
-        {
-            std::vector<double> retval{aicg13_nat, factor_aicg13, correct_ba_mgo,
-                                       coef_aicg13_gauss, wid_aicg13_gauss};
-            return retval;
-        }
+        std::vector<int> get_imps() const {return std::vector<int>({imp1, imp2, imp3});}
+        std::vector<int> get_impuns() const {return std::vector<int>({imp1un, imp2un, imp3un});}
+        double get_nat() const {return aicg13_nat;}
+        double get_factor() const {return factor_aicg13;}
+        double get_mgo() const {return correct_ba_mgo;}
+        double get_coef() const {return coef_aicg13_gauss;}
+        double get_other() const {return wid_aicg13_gauss;}
+        std::string get_type() const {return batype;}
+        std::string get_ClassName() const {return "Aicg13Line";}
         BlockType get_BlockType() const {return N_AICG13;};
+
+        void set_index(int i){iba = i;}
+        void set_iunit1(int i){iunit1 = i;}
+        void set_iunit2(int i){iunit2 = i;}
+        void set_imps(std::vector<int> imps)
+        {
+            if(imps.size() < 3)
+                throw std::invalid_argument("there are no enough argument");
+            if(imps.size() > 3) 
+                std::cout << "Warning: set_imps has more than 2 argument in BondLine"
+                          << std::endl;
+            imp1 = imps.at(1);
+            imp2 = imps.at(2);
+            imp3 = imps.at(3);
+            return;
+        }
+        void set_impuns(std::vector<int> impuns)
+        {
+            if(impuns.size() < 3)
+                throw std::invalid_argument("there are no enough argument");
+
+            if(impuns.size() != 3) 
+                std::cout << "Warning: set_impuns has more than 2 argument in BondLine"
+                          << std::endl;
+            imp1un = impuns.at(1);
+            imp2un = impuns.at(2);
+            imp3un = impuns.at(3);
+            return;
+        }
+        void set_nat(double n){ aicg13_nat = n;}
+        void set_factor(double f){factor_aicg13 = f;}
+        void set_mgo(double m){correct_ba_mgo = m;}
+        void set_coef(double c){coef_aicg13_gauss = c;}
+        void set_other(double o){wid_aicg13_gauss = o;};
+        void set_type(std::string s){batype = s;}
 
     };
 

@@ -22,22 +22,48 @@ namespace ninf
         int get_index() const {return icon;}
         int get_iunit1() const {return iunit1;}
         int get_iunit2() const {return iunit2;}
-        std::vector<int> get_imps() const
-        {
-            std::vector<int> retval{imp1, imp2};
-            return retval;
-        }
-        std::vector<int> get_impuns() const 
-        {
-            std::vector<int> retval{imp1un, imp2un};
-            return retval;
-        }
-        std::vector<double> get_coefs() const 
-        {
-            std::vector<double> retval{go_nat, factor_go, dummy_mgo, coef_go};
-            return retval;
-        }
+        std::vector<int> get_imps() const {return std::vector<int>({imp1, imp2});}
+        std::vector<int> get_impuns() const {return std::vector<int>({imp1un, imp2un});}
+        double get_nat() const {return go_nat;}
+        double get_factor() const {return factor_go;}
+        double get_mgo() const {return dummy_mgo;}
+        double get_coef() const {return coef_go;}
+        std::string get_type() const {return contype;}
+        std::string get_ClassName() const {return "ContactLine";}
         BlockType get_BlockType() const {return N_CONTACT;}
+
+        void set_index(int i){icon = i;}
+        void set_iunit1(int i){iunit1 = i;}
+        void set_iunit2(int i){iunit2 = i;}
+        void set_imps(std::vector<int> imps)
+        {
+            if(imps.size() < 2)
+                throw std::invalid_argument("there are no enough argument");
+            if(imps.size() > 2) 
+                std::cout << "Warning: set_imps has more than 2 argument in BondLine"
+                          << std::endl;
+            imp1 = imps.at(1);
+            imp2 = imps.at(2);
+            return;
+        }
+        void set_impuns(std::vector<int> impuns)
+        {
+            if(impuns.size() < 2)
+                throw std::invalid_argument("there are no enough argument");
+
+            if(impuns.size() > 2) 
+                std::cout << "Warning: set_impuns has more than 2 argument in BondLine"
+                          << std::endl;
+            imp1un = impuns.at(1);
+            imp2un = impuns.at(2);
+            return;
+        }
+        void set_nat(double n){ go_nat = n;}
+        void set_factor(double f){factor_go = f;}
+        void set_mgo(double m){dummy_mgo = m;}
+        void set_coef(double c){coef_go = c;}
+        void set_type(std::string s){contype = s;}
+
     };
 
     LineType ContactLine::readline(std::ifstream& file)

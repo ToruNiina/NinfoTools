@@ -19,25 +19,51 @@ namespace ninf
         LineType readline(std::ifstream& file);
         void read_stream(std::istream& is);
         void write_stream(std::ostream& os);
+
         int get_index() const {return ibd;}
         int get_iunit1() const {return iunit1;}
         int get_iunit2() const {return iunit2;}
-        std::vector<int> get_imps() const 
+        std::vector<int> get_imps() const {return std::vector<int>({imp1, imp2});}
+        std::vector<int> get_impuns() const {return std::vector<int>({imp1un, imp2un});}
+        double get_nat() const {return bd_nat;}
+        double get_factor() const {return factor_bd;}
+        double get_mgo() const {return correct_bd_mgo;}
+        double get_coef() const {return coef_bd;}
+        std::string get_type() const {return bdtype;}
+        std::string get_ClassName() const {return "BondLine";}
+        BlockType get_BlockType() const {return N_BOND;}
+
+        void set_index(int i){ibd = i;}
+        void set_iunit1(int i){iunit1 = i;}
+        void set_iunit2(int i){iunit2 = i;}
+        void set_imps(std::vector<int> imps)
         {
-            std::vector<int> retval = {imp1, imp2};
-            return retval;
+            if(imps.size() < 2)
+                throw std::invalid_argument("there are no enough argument");
+            if(imps.size() != 2) 
+                std::cout << "Warning: set_imps has more than 2 argument in BondLine"
+                          << std::endl;
+            imp1 = imps.at(1);
+            imp2 = imps.at(2);
+            return;
         }
-        std::vector<int> get_impuns() const 
+        void set_impuns(std::vector<int> impuns)
         {
-            std::vector<int> retval = {imp1un, imp2un};
-            return retval;
+            if(impuns.size() < 2)
+                throw std::invalid_argument("there are no enough argument");
+
+            if(impuns.size() != 2) 
+                std::cout << "Warning: set_impuns has more than 2 argument in BondLine"
+                          << std::endl;
+            imp1un = impuns.at(1);
+            imp2un = impuns.at(2);
+            return;
         }
-        std::vector<double> get_coefs() const 
-        {
-            std::vector<double> retval = {bd_nat, factor_bd, correct_bd_mgo, coef_bd};
-            return retval;
-        }
-        BlockType get_BlockType() const {return N_BOND;};
+        void set_nat(double n){ bd_nat = n;}
+        void set_factor(double f){factor_bd = f;}
+        void set_mgo(double m){correct_bd_mgo = m;}
+        void set_coef(double c){coef_bd = c;}
+        void set_type(std::string s){bdtype = s;}
 
     };
 

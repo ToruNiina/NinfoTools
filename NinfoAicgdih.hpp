@@ -23,23 +23,53 @@ namespace ninf
         int get_index() const {return idih;}
         int get_iunit1() const {return iunit1;}
         int get_iunit2() const {return iunit2;}
-        std::vector<int> get_imps() const 
-        {
-            std::vector<int> retval{imp1, imp2, imp3, imp4};
-            return retval;
-        }
-        std::vector<int> get_impuns() const 
-        {
-            std::vector<int> retval{imp1un, imp2un, imp3un, imp4un};
-            return retval;
-        }
-        std::vector<double> get_coefs() const 
-        {
-            std::vector<double> retval{dih_nat, factor_aicg14, correct_dih_mgo,
-                                       coef_dih_gauss, wid_dih_gauss};
-            return retval;
-        }
+        std::vector<int> get_imps() const {return std::vector<int>({imp1, imp2, imp3, imp4});}
+        std::vector<int> get_impuns() const {return std::vector<int>({imp1un, imp2un, imp3un, imp4un});}
+        double get_nat() const {return dih_nat;}
+        double get_factor() const {return factor_aicg14;}
+        double get_mgo() const {return correct_dih_mgo;}
+        double get_coef() const {return coef_dih_gauss;}
+        double get_other() const {return wid_dih_gauss;}
+        std::string get_type() const {return dihtype;}
+        std::string get_ClassName() const {return "AicgdihLine";}
         BlockType get_BlockType() const {return N_AICGDIH;};
+
+        void set_index(int i){idih = i;}
+        void set_iunit1(int i){iunit1 = i;}
+        void set_iunit2(int i){iunit2 = i;}
+        void set_imps(std::vector<int> imps)
+        {
+            if(imps.size() < 4)
+                throw std::invalid_argument("there are no enough argument");
+            if(imps.size() > 4) 
+                std::cout << "Warning: set_imps has more than 4 argument in BondLine"
+                          << std::endl;
+            imp1 = imps.at(1);
+            imp2 = imps.at(2);
+            imp3 = imps.at(3);
+            imp4 = imps.at(4);
+            return;
+        }
+        void set_impuns(std::vector<int> impuns)
+        {
+            if(impuns.size() < 4)
+                throw std::invalid_argument("there are no enough argument");
+
+            if(impuns.size() != 4) 
+                std::cout << "Warning: set_impuns has more than 4 argument in BondLine"
+                          << std::endl;
+            imp1un = impuns.at(1);
+            imp2un = impuns.at(2);
+            imp3un = impuns.at(3);
+            imp4un = impuns.at(4);
+            return;
+        }
+        void set_nat(double n){ dih_nat = n;}
+        void set_factor(double f){factor_aicg14 = f;}
+        void set_mgo(double m){correct_dih_mgo = m;}
+        void set_coef(double c){coef_dih_gauss = c;}
+        void set_other(double o){wid_dih_gauss = o;}
+        void set_type(std::string s){dihtype = s;}
 
     };
 
