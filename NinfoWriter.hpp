@@ -69,5 +69,7 @@ namespace ninf
         return;
     }
 
+
+    typedef std::shared_ptr<NinfoWriter> WriterSptr;
 }
 #endif

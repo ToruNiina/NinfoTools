@@ -8,7 +8,6 @@
 namespace ninf
 {
     typedef std::pair<int, int> iUnits;
-    typedef std::shared_ptr<NinfoWriter> WriterSptr;
 
     bool operator==(const iUnits& lhs, const iUnits& rhs)
     {

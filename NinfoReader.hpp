@@ -4,8 +4,11 @@
 #include "NinfoAngl.hpp"
 #include "NinfoDihd.hpp"
 #include "NinfoAicg13.hpp"
+#include "NinfoAicg14.hpp"
 #include "NinfoAicgdih.hpp"
 #include "NinfoContact.hpp"
+#include "NinfoBasepair.hpp"
+#include "NinfoBasestack.hpp"
 
 namespace ninf
 {
@@ -67,6 +70,14 @@ namespace ninf
                 block_readed = true;
                 break;
             }
+            case N_AICG14:
+            {
+                BlockSptr aicg14_block(new Aicg14Block);
+                aicg14_block->read_block(ninfo_file);
+                blocks.push_back(aicg14_block);
+                block_readed = true;
+                break;
+            }
             case N_AICGDIH:
             {
                 BlockSptr aicg_dih_block(new AicgdihBlock);
@@ -80,6 +91,22 @@ namespace ninf
                 BlockSptr contact_block(new ContactBlock);
                 contact_block->read_block(ninfo_file);
                 blocks.push_back(contact_block);
+                block_readed = true;
+                break;           
+            }
+            case N_BASEPAIR:
+            {
+                BlockSptr basepair_block(new BasepairBlock);
+                basepair_block->read_block(ninfo_file);
+                blocks.push_back(basepair_block);
+                block_readed = true;
+                break;       
+            }
+            case N_BASESTACK:
+            {
+                BlockSptr basestack_block(new BasestackBlock);
+                basestack_block->read_block(ninfo_file);
+                blocks.push_back(basestack_block);
                 block_readed = true;
                 break;           
             }
@@ -164,6 +191,10 @@ namespace ninf
         {
             return N_AICG13;
         }
+        else if(line.substr(5,25) == "1-4 contacts with L_AICG2")
+        {
+            return N_AICG13;
+        }
         else if(line.substr(5,30) == "1-4 contacts with L_AICG2_PLUS" ||
                 line.substr(5,35) == "<<<< 1-4 contacts with L_AICG2_PLUS" )
         {
@@ -172,6 +203,14 @@ namespace ninf
         else if(line.substr(5,14) == "native contact")
         {
             return N_CONTACT;
+        }
+        else if(line.substr(5,15) == "native basepair")
+        {
+            return N_BASEPAIR;
+        }
+        else if(line.substr(5,16) == "native basestack")
+        {
+            return N_BASESTACK;
         }
         else
         {
@@ -183,5 +222,7 @@ namespace ninf
         }
     }
 
+
+    typedef std::shared_ptr<NinfoReader> ReaderSptr;
 }
 #endif

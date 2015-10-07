@@ -10,8 +10,11 @@ namespace ninf
          N_ANGL,
          N_DIHD,
          N_AICG13,
+         N_AICG14,
          N_AICGDIH,
          N_CONTACT,
+         N_BASEPAIR,
+         N_BASESTACK,
          NO_BLOCK,
          N_BASE
     };
