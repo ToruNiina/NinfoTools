@@ -2,7 +2,7 @@
 #define NINFO_CONTACT_LINE
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class ContactLine : public LineBase

@@ -2,7 +2,7 @@
 #define NINFO_BASESTACK
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class BasestackLine : public LineBase

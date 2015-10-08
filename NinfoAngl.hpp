@@ -2,7 +2,7 @@
 #define NINFO_ANGL_LINE
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class AnglLine : public LineBase

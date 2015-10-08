@@ -5,27 +5,8 @@
 #include "NinfoReader.hpp"
 #include "NinfoWriter.hpp"
 
-namespace ninf
+namespace liberica
 {
-    typedef std::pair<int, int> iUnits;
-
-    bool operator==(const iUnits& lhs, const iUnits& rhs)
-    {
-        bool forward(lhs.first == rhs.first && lhs.second == rhs.second);
-        bool backward(lhs.first == rhs.second && lhs.second == rhs.first);
-        return forward || backward;                                                               
-    }
-
-    bool operator<(const iUnits& lhs, const iUnits& rhs)
-    {
-        if(lhs.first != rhs.first)
-        {
-            return (lhs.first < rhs.first);
-        }else{
-            return (lhs.second < rhs.second);
-        }
-    }
-
     class NinfoSplitter
     {
         int simN;

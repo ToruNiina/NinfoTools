@@ -7,7 +7,7 @@
 #include "NinfoAicgdih.hpp"
 #include "NinfoContact.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class NinfoWriter

@@ -2,7 +2,7 @@
 #define NINFO_BASEPAIR
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class BasepairLine : public LineBase

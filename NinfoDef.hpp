@@ -1,7 +1,7 @@
 #ifndef NINFO_DEF
 #define NINFO_DEF
 
-namespace ninf
+namespace liberica
 {
 
     enum BlockType
@@ -29,6 +29,24 @@ namespace ninf
         WRONG
     };
 
+    typedef std::pair<int, int> iUnits;
+
+    bool operator==(const iUnits& lhs, const iUnits& rhs)
+    {
+        bool forward(lhs.first == rhs.first && lhs.second == rhs.second);
+        bool backward(lhs.first == rhs.second && lhs.second == rhs.first);
+        return forward || backward;                                                               
+    }
+
+    bool operator<(const iUnits& lhs, const iUnits& rhs)
+    {
+        if(lhs.first != rhs.first)
+        {
+            return (lhs.first < rhs.first);
+        }else{
+            return (lhs.second < rhs.second);
+        }
+    }
     
 }
 #endif

@@ -2,7 +2,7 @@
 #define NINFO_AICG_14
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class Aicg14Line : public LineBase

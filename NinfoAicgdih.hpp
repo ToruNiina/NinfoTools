@@ -2,7 +2,7 @@
 #define NINFO_AICG_DIH
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class AicgdihLine : public LineBase

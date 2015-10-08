@@ -1,7 +1,7 @@
 #include "NinfoReader.hpp"
 #include "NinfoWriter.hpp"
 
-using namespace ninf;
+using namespace liberica;
 
 int main(int argc, char *argv[])
 {

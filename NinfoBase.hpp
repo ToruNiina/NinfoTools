@@ -10,7 +10,7 @@
 #include <memory>
 #include "NinfoDef.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class LineBase

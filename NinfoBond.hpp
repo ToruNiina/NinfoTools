@@ -2,7 +2,7 @@
 #define NINFO_BOND_LINE
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
     class BondLine : public LineBase
     {

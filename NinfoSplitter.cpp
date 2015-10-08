@@ -5,7 +5,7 @@
 #include <cstdlib>
 #include "NinfoSplitter.hpp"
 
-using namespace ninf;
+using namespace liberica;
 
 int main(int argc, char *argv[])
 {

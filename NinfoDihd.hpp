@@ -2,7 +2,7 @@
 #define NINFO_DIHD_LINE
 #include "NinfoBase.hpp"
 
-namespace ninf
+namespace liberica
 {
 
     class DihdLine : public LineBase

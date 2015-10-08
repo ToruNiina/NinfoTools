@@ -10,7 +10,7 @@
 #include "NinfoBasepair.hpp"
 #include "NinfoBasestack.hpp"
 
-namespace ninf
+namespace liberica
 {
     class NinfoReader
     {
