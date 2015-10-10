@@ -1,0 +1,8 @@
+*.inp
+*.cmake
+*.ninfo
+CMakeFiles/
+CMakeCache.txt
+Makefile
+nsplit
+tester
