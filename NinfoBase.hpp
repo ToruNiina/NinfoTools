@@ -34,6 +34,8 @@ namespace liberica
         virtual double get_mgo() const = 0;
         virtual double get_coef() const = 0;
         // wid in aicg or coef3 in dihd
+        virtual double get_wid() const;
+        virtual double get_coef3() const;
         virtual double get_other() const;
         virtual std::string get_type() const = 0;
         virtual BlockType get_BlockType() const;

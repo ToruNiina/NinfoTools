@@ -51,9 +51,11 @@ namespace liberica
         bool read_file(std::string filename);
 
         std::string get_out_path() const {return out_path;}
+        std::string get_para_path() const {return para_path;}
         std::string get_pdb_path() const {return pdb_path;}
         std::string get_ini_path() const {return ini_path;}
         std::string get_ninf_path() const {return ninf_path;}
+        std::string get_aicg_path() const {return aicg_path;}
         std::string get_file_name() const {return file_name;}
         std::map<OUTPUT_TYPE, bool> get_outfiles() const {return outfiles;}
 
@@ -62,7 +64,6 @@ namespace liberica
     private:
 
         void read_block(std::ifstream& ifs);
-
         void set_output(std::istringstream& ls);
     };
 
