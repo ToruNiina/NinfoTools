@@ -30,7 +30,7 @@ namespace liberica
         double get_factor() const {return factor_aicg14;}
         double get_mgo() const {return correct_dih_mgo;}
         double get_coef() const {return coef_aicg14_gauss;}
-        double get_other() const {return wid_aicg14_gauss;}
+        double get_wid() const {return wid_aicg14_gauss;}
         std::string get_type() const {return dihtype;}
         std::string get_ClassName() const {return "Aicg14Line";}
         BlockType get_BlockType() const {return N_AICG14;};
@@ -69,7 +69,7 @@ namespace liberica
         void set_factor(double f){factor_aicg14 = f;}
         void set_mgo(double m){correct_dih_mgo = m;}
         void set_coef(double c){coef_aicg14_gauss = c;}
-        void set_other(double o){wid_aicg14_gauss = o;}
+        void set_wid(double w){wid_aicg14_gauss = w;}
         void set_type(std::string s){dihtype = s;}
 
     };

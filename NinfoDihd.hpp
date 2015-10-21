@@ -29,7 +29,7 @@ namespace liberica
         double get_factor() const {return factor_dih;}
         double get_mgo() const {return correct_dih_mgo;}
         double get_coef() const {return coef_dih_1;}
-        double get_other() const {return coef_dih_3;}
+        double get_coef3() const {return coef_dih_3;}
         std::string get_type() const {return dihtype;}
         std::string get_ClassName() const {return "DihdLine";}
         BlockType get_BlockType() const {return N_DIHD;};
@@ -68,7 +68,7 @@ namespace liberica
         void set_factor(double f){factor_dih = f;}
         void set_mgo(double m){correct_dih_mgo = m;}
         void set_coef(double c){coef_dih_1 = c;}
-        void set_other(double o){coef_dih_3 = o;}
+        void set_coef3(double c3){coef_dih_3 = c3;}
         void set_type(std::string s){dihtype = s;}
 
     };

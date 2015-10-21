@@ -30,7 +30,7 @@ namespace liberica
         double get_factor() const {return factor_go;}
         double get_mgo() const {return dummy_mgo;}
         double get_coef() const {return coef_go;}
-        double get_other() const {return nhb_bp;} // TODO: treat this...
+        int get_nhb_bp() const {return nhb_bp;}
         std::string get_type() const {return bptype;}
         std::string get_ClassName() const {return "BasepaitLine";}
         BlockType get_BlockType() const {return N_BASEPAIR;}
@@ -65,7 +65,7 @@ namespace liberica
         void set_factor(double f){factor_go = f;}
         void set_mgo(double m){dummy_mgo = m;}
         void set_coef(double c){coef_go = c;}
-        void set_other(double o){nhb_bp = (int)o;}
+        void set_nhb_bp(int n){nhb_bp = n;}
         void set_type(std::string s){bptype = s;}
 
     };

@@ -36,7 +36,7 @@ namespace liberica
         // wid in aicg or coef3 in dihd
         virtual double get_wid() const;
         virtual double get_coef3() const;
-        virtual double get_other() const;
+        virtual int get_nhb_bp() const;
         virtual std::string get_type() const = 0;
         virtual BlockType get_BlockType() const;
         virtual std::string get_ClassName() const;
@@ -50,22 +50,65 @@ namespace liberica
         virtual void set_factor(double f) = 0;
         virtual void set_mgo(double m) = 0;// correct or dummy
         virtual void set_coef(double c) = 0;
-        // wid in aicg or coef3 in dihd
-        virtual void set_other(double o);
+        virtual void set_coef3(double c3);
+        virtual void set_wid(double w);
+        virtual void set_nhb_bp(int n);
         virtual void set_type(std::string s) = 0;
 
     };
 
-    double LineBase::get_other() const
+    double LineBase::get_wid() const
     {
-        std::cout << "Warning: this does not have wid_gauss nor coef_3. return 0." << std::endl;
+        std::cout << "Warning: this does not have wid_gauss. return 0." << std::endl;
         std::cout << "Class: " << get_ClassName() << std::endl;
         return 0e0;
     }
 
-    void LineBase::set_other(double o)
+    double LineBase::get_coef3() const
     {
-        std::cout << "Warning: this does not have wid_gauss nor coef_3. do nothing." << std::endl;
+        std::cout << "Warning: this does not have coef_3. return 0." << std::endl;
+        std::cout << "Class: " << get_ClassName() << std::endl;
+        return 0e0;
+    }
+
+    int LineBase::get_nhb_bp() const
+    {
+        std::cout << "Warning: this does not have nhb_bp. return 0." << std::endl;
+        std::cout << "Class: " << get_ClassName() << std::endl;
+        return 0;
+    }
+
+//     double LineBase::get_other() const
+//     {
+//         std::cout << "Warning: this does not have wid_gauss nor coef_3. return 0." << std::endl;
+//         std::cout << "Class: " << get_ClassName() << std::endl;
+//         return 0e0;
+//     }
+
+//     void LineBase::set_other(double o)
+//     {
+//         std::cout << "Warning: this does not have wid_gauss nor coef_3. do nothing." << std::endl;
+//         std::cout << "Class: " << get_ClassName() << std::endl;
+//         return;
+//     }
+
+    void LineBase::set_wid(double w)
+    {
+        std::cout << "Warning: this does not have wid_gauss. do nothing." << std::endl;
+        std::cout << "Class: " << get_ClassName() << std::endl;
+        return;
+    }
+
+    void LineBase::set_coef3(double c3)
+    {
+        std::cout << "Warning: this does not have coef_3. do nothing." << std::endl;
+        std::cout << "Class: " << get_ClassName() << std::endl;
+        return;
+    }
+
+    void LineBase::set_nhb_bp(int n)
+    {
+        std::cout << "Warning: this does not have nhb_bp. do nothing." << std::endl;
         std::cout << "Class: " << get_ClassName() << std::endl;
         return;
     }

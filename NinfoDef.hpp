@@ -1,5 +1,6 @@
 #ifndef NINFO_DEF
 #define NINFO_DEF
+#include <utility>
 
 namespace liberica
 {
@@ -49,4 +50,4 @@ namespace liberica
     }
     
 }
-#endif
+#endif //NINFO_DEF
