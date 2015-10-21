@@ -3,7 +3,7 @@
  *  written by Toru Niina in Oct. 4 2015 *
  *****************************************/
 #include <cstdlib>
-#include "NinfoSplitter.hpp"
+#include "ninfo/NinfoSplitter.hpp"
 
 using namespace liberica;
 

@@ -1,5 +1,5 @@
-#include "NinfoReader.hpp"
-#include "NinfoWriter.hpp"
+#include "ninfo/NinfoReader.hpp"
+#include "ninfo/NinfoWriter.hpp"
 
 using namespace liberica;
 
