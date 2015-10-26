@@ -86,7 +86,7 @@ namespace liberica
 
     void InpNativeInfo::read_block(std::ifstream& ifs)
     {
-        bool read(false);
+//         bool read(false);
         while(!ifs.eof())
         {
             std::string line;
@@ -103,7 +103,7 @@ namespace liberica
                 {
                     if(iter->substr(iter->size()-6, 6) == "\x2eninfo")
                     {
-                        read = true;
+//                         read = true;
                         ninfo_files[iunits] = *iter;
                         return;
                     }
@@ -129,7 +129,7 @@ namespace liberica
                 {
                     if(itr->substr(itr->size()-6, 6) == "\x2eninfo")
                     {
-                        read = true;
+//                         read = true;
                         ninfo_files[iunits] = *itr;
                         break;
                     }
@@ -137,7 +137,7 @@ namespace liberica
             }
             else if(line.substr(0,4) == ">>>>")
             {
-                read = true;
+//                 read = true;
                 break;
             }
             else

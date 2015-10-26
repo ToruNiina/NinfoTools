@@ -78,20 +78,6 @@ namespace liberica
         return 0;
     }
 
-//     double LineBase::get_other() const
-//     {
-//         std::cout << "Warning: this does not have wid_gauss nor coef_3. return 0." << std::endl;
-//         std::cout << "Class: " << get_ClassName() << std::endl;
-//         return 0e0;
-//     }
-
-//     void LineBase::set_other(double o)
-//     {
-//         std::cout << "Warning: this does not have wid_gauss nor coef_3. do nothing." << std::endl;
-//         std::cout << "Class: " << get_ClassName() << std::endl;
-//         return;
-//     }
-
     void LineBase::set_wid(double w)
     {
         std::cout << "Warning: this does not have wid_gauss. do nothing." << std::endl;
@@ -142,6 +128,7 @@ namespace liberica
         int size() const { return lines.size(); }
         std::vector<LineSptr>::iterator begin(){ return lines.begin(); }
         std::vector<LineSptr>::iterator end(){ return lines.end(); }
+        void set_iunits(iUnits iunit);
 
         virtual void write_block(std::ofstream& os) = 0;
         virtual void read_block(std::ifstream& is) = 0;
@@ -154,6 +141,16 @@ namespace liberica
             throw std::invalid_argument("Block must not contain other type line");
 
         lines.push_back(line);
+        return;
+    }
+
+    void BlockBase::set_iunits(iUnits iunit)
+    {
+        for(auto iter = lines.begin(); iter != lines.end(); ++iter)
+        {
+            (*iter)->set_iunit1(iunit.first);
+            (*iter)->set_iunit2(iunit.second);
+        }
         return;
     }
 

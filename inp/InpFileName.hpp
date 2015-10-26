@@ -309,7 +309,7 @@ namespace liberica
         os << "path = " << ifn.out_path << std::endl;
         os << "filename = " << ifn.file_name << std::endl;
         bool output(false);
-        for(int i(0); i < ifn.outfiles.size(); ++i)
+        for(unsigned int i(0); i < ifn.outfiles.size(); ++i)
         {
 //          const InpFileName::OUTPUT_TYPE out_type(InpFileName::OUTPUT_TYPE(i));
             output = (output || ifn.outfiles.at(InpFileName::OUTPUT_TYPE(i)));

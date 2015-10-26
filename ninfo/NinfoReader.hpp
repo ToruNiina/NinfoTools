@@ -24,6 +24,7 @@ namespace liberica
 
         std::vector<BlockSptr> read_file();
         bool eof() const {return ninfo_file.eof();}
+        void set_iunits(iUnits iunits);
 
     private:
         BlockType find_block(std::ifstream& file);
@@ -221,7 +222,6 @@ namespace liberica
             throw std::invalid_argument("unknown block name");
         }
     }
-
 
     typedef std::shared_ptr<NinfoReader> ReaderSptr;
 }
