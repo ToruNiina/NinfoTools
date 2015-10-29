@@ -1,11 +1,14 @@
-#ifndef NINFO_WRITER
-#define NINFO_WRITER
+#ifndef LIBERICA_NINFO_WRITER
+#define LIBERICA_NINFO_WRITER
 #include "NinfoBond.hpp"
 #include "NinfoAngl.hpp"
 #include "NinfoDihd.hpp"
 #include "NinfoAicg13.hpp"
+#include "NinfoAicg14.hpp"
 #include "NinfoAicgdih.hpp"
 #include "NinfoContact.hpp"
+#include "NinfoBasepair.hpp"
+#include "NinfoBasestack.hpp"
 
 namespace liberica
 {
@@ -18,7 +21,8 @@ namespace liberica
         std::vector<BlockSptr> blocks;
 
     public:
-        NinfoWriter(std::string _filename): filename(_filename), ninfo_file(_filename.c_str())
+        NinfoWriter(std::string _filename)
+            : filename(_filename), ninfo_file(_filename.c_str())
         {}
 
         NinfoWriter(std::string _filename, std::vector<BlockSptr> data)
@@ -33,7 +37,7 @@ namespace liberica
                 for(std::vector<BlockSptr>::iterator iter = blocks.begin();
                     iter != blocks.end(); ++iter)
                 {
-                    if(block->get_BlockType() == (*iter)->get_BlockType() )
+                    if(block->get_BlockType() == (*iter)->get_BlockType())
                     {
                         std::cout << "Warning: trying to push_back block that already exists.";
                         std::cout << std::endl;
@@ -46,6 +50,7 @@ namespace liberica
         }
 
         void write();
+
         std::string get_filename() const
         {
             return filename;
@@ -72,4 +77,4 @@ namespace liberica
 
     typedef std::shared_ptr<NinfoWriter> WriterSptr;
 }
-#endif
+#endif //LIBERICA_NINFO_WRITER

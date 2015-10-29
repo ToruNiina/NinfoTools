@@ -12,10 +12,11 @@ namespace liberica
         int simN;
         std::string filename;
         NinfoData all_in_one;
+        NinfoBlockFactory factory;
 
     public:
         NinfoSplitter(std::string _filename, NinfoData data)
-            : simN(1), all_in_one(data)
+            : simN(1), all_in_one(data), factory()
         {
             if(_filename.substr(_filename.size()-6,6) == "\x2eninfo")
             {
@@ -25,7 +26,7 @@ namespace liberica
         }
 
         NinfoSplitter(std::string _filename, NinfoData data, int N)
-            : simN(N), all_in_one(data)
+            : simN(N), all_in_one(data), factory()
         {
             if(_filename.substr(_filename.size()-6,6) == "\x2eninfo")
             {
@@ -120,24 +121,8 @@ namespace liberica
 
     BlockSptr NinfoSplitter::gen_sub_block(BlockSptr block)
     {
-        BlockType type( block->get_BlockType() );
-        switch(type)
-        {
-            case N_BOND:
-                return BlockSptr(new BondBlock);
-            case N_ANGL:
-                return BlockSptr(new AnglBlock);
-            case N_DIHD:
-                return BlockSptr(new DihdBlock);
-            case N_AICG13:
-                return BlockSptr(new Aicg13Block);
-            case N_AICGDIH:
-                return BlockSptr(new AicgdihBlock);
-            case N_CONTACT:
-                return BlockSptr(new ContactBlock);
-            default:
-                throw std::invalid_argument("Unknown BlockType");
-        }
+        BlockType b_type( block->get_BlockType() );
+        return std::shared_ptr<BlockBase>(factory.create(b_type));
     }
 
 
