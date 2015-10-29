@@ -1,0 +1,54 @@
+#ifndef LIBERICA_NBLOCK_FACTORY
+#define LIBERICA_NBLOCK_FACTORY
+#include "NinfoBond.hpp"
+#include "NinfoAngl.hpp"
+#include "NinfoDihd.hpp"
+#include "NinfoAicg13.hpp"
+#include "NinfoAicg14.hpp"
+#include "NinfoAicgdih.hpp"
+#include "NinfoContact.hpp"
+#include "NinfoBasepair.hpp"
+#include "NinfoBasestack.hpp"
+
+namespace liberica
+{
+    class NinfoBlockFactory
+    {
+        public:
+
+            NinfoBlockFactory(){}
+            ~NinfoBlockFactory(){}
+
+            BlockBase* create(const BlockType& block_t);
+    };
+
+    BlockBase* NinfoBlockFactory::create(const BlockType& block_t)
+    {
+        switch(block_t)
+        {
+            case N_BOND:
+                return new BondBlock;
+            case N_ANGL:
+                return new AnglBlock;
+            case N_DIHD:
+                return new DihdBlock;
+            case N_AICG13:
+                return new Aicg13Block;
+            case N_AICG14:
+                return new Aicg14Block;
+            case N_AICGDIH:
+                return new AicgdihBlock;
+            case N_CONTACT:
+                return new ContactBlock;
+            case N_BASEPAIR:
+                return new BasepairBlock;
+            case N_BASESTACK:
+                return new BasestackBlock;
+            default:
+                std::cout << "NinofBlockFactory recieve unknown type." << std::endl;
+                return NULL;
+        }
+    }
+}//end namespace liberica
+
+#endif //LIBERICA_NBLOCK_FACTORY

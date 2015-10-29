@@ -1,135 +1,157 @@
 #ifndef NINFO_READER
 #define NINFO_READER
-#include "NinfoBond.hpp"
-#include "NinfoAngl.hpp"
-#include "NinfoDihd.hpp"
-#include "NinfoAicg13.hpp"
-#include "NinfoAicg14.hpp"
-#include "NinfoAicgdih.hpp"
-#include "NinfoContact.hpp"
-#include "NinfoBasepair.hpp"
-#include "NinfoBasestack.hpp"
+#include "NinfoFactory.hpp"
 
 namespace liberica
 {
     class NinfoReader
     {
-        bool block_readed;
-        std::ifstream ninfo_file;
-        std::vector<BlockSptr> blocks;
-
     public:
-        NinfoReader(std::string filename): block_readed(false), ninfo_file(filename.c_str() )
-        {}
 
-        std::vector<BlockSptr> read_file();
+        NinfoReader(std::string filename)
+            : block_readed(false),
+              ninfo_file(filename.c_str()),
+              factory()
+        {}
+        ~NinfoReader(){}
+
+        std::vector<BlockSptr>& read_file();
         bool eof() const {return ninfo_file.eof();}
         void set_iunits(iUnits iunits);
 
     private:
+
         BlockType find_block(std::ifstream& file);
         BlockType get_blocktype(const std::string& line);
+
+    private:
+
+        bool block_readed;
+        std::ifstream ninfo_file;
+        std::vector<BlockSptr> blocks;
+        NinfoBlockFactory factory;
+
     };
 
-    std::vector<BlockSptr> NinfoReader::read_file()
+    std::vector<BlockSptr>& NinfoReader::read_file()
     {
-        while(!ninfo_file.eof() )
+        while(!ninfo_file.eof())
         {
-            BlockType btype( find_block(ninfo_file) );
-
-            switch(btype)
+            BlockType btype(find_block(ninfo_file));
+            if(btype == NO_BLOCK)
             {
-            case N_BOND:
-            {
-                BlockSptr bond_block(new BondBlock);
-                bond_block->read_block(ninfo_file);
-                blocks.push_back(bond_block);
-                block_readed = true;
-                break;
-            }
-            case N_ANGL:
-            {
-                BlockSptr angl_block(new AnglBlock);
-                angl_block->read_block(ninfo_file);
-                blocks.push_back(angl_block);
-                block_readed = true;
-                break;
-            }
-            case N_DIHD:
-            {
-                BlockSptr dihd_block(new DihdBlock);
-                dihd_block->read_block(ninfo_file);
-                blocks.push_back(dihd_block);
-                block_readed = true;
-                break;
-            }
-            case N_AICG13:
-            {
-                BlockSptr aicg13_block(new Aicg13Block);
-                aicg13_block->read_block(ninfo_file);
-                blocks.push_back(aicg13_block);
-                block_readed = true;
-                break;
-            }
-            case N_AICG14:
-            {
-                BlockSptr aicg14_block(new Aicg14Block);
-                aicg14_block->read_block(ninfo_file);
-                blocks.push_back(aicg14_block);
-                block_readed = true;
-                break;
-            }
-            case N_AICGDIH:
-            {
-                BlockSptr aicg_dih_block(new AicgdihBlock);
-                aicg_dih_block->read_block(ninfo_file);
-                blocks.push_back(aicg_dih_block);
-                block_readed = true;
-                break;
-            }
-            case N_CONTACT:
-            {
-                BlockSptr contact_block(new ContactBlock);
-                contact_block->read_block(ninfo_file);
-                blocks.push_back(contact_block);
-                block_readed = true;
-                break;           
-            }
-            case N_BASEPAIR:
-            {
-                BlockSptr basepair_block(new BasepairBlock);
-                basepair_block->read_block(ninfo_file);
-                blocks.push_back(basepair_block);
-                block_readed = true;
-                break;       
-            }
-            case N_BASESTACK:
-            {
-                BlockSptr basestack_block(new BasestackBlock);
-                basestack_block->read_block(ninfo_file);
-                blocks.push_back(basestack_block);
-                block_readed = true;
-                break;           
-            }
-            case NO_BLOCK:
-            {
-                std::cout << "Message: ninfo file reading is completed." << std::endl;
-                std::cout << "         there are " << blocks.size() << " blocks in the file.";
+                std::cout << "Message: ninfo file reading is completed."
+                          << std::endl;
+                std::cout << "         there are " << blocks.size()
+                          << " blocks in the file.";
                 std::cout << std::endl;
                 return blocks;
             }
-            default:
-            {
-                std::cout << "File Reading Error: Unknown BlockType: " << btype << std::endl;
-                break;
-            }
 
-            }//switch_end
+            BlockSptr ninfo_block(factory.create(btype));
+            ninfo_block->read_block(ninfo_file);
+            blocks.push_back(ninfo_block);
+            block_readed = true;
+
+
+//             switch(btype)
+//             {
+//             case N_BOND:
+//             {
+//                 BlockSptr bond_block(new BondBlock);
+//                 bond_block->read_block(ninfo_file);
+//                 blocks.push_back(bond_block);
+//                 block_readed = true;
+//                 break;
+//             }
+//             case N_ANGL:
+//             {
+//                 BlockSptr angl_block(new AnglBlock);
+//                 angl_block->read_block(ninfo_file);
+//                 blocks.push_back(angl_block);
+//                 block_readed = true;
+//                 break;
+//             }
+//             case N_DIHD:
+//             {
+//                 BlockSptr dihd_block(new DihdBlock);
+//                 dihd_block->read_block(ninfo_file);
+//                 blocks.push_back(dihd_block);
+//                 block_readed = true;
+//                 break;
+//             }
+//             case N_AICG13:
+//             {
+//                 BlockSptr aicg13_block(new Aicg13Block);
+//                 aicg13_block->read_block(ninfo_file);
+//                 blocks.push_back(aicg13_block);
+//                 block_readed = true;
+//                 break;
+//             }
+//             case N_AICG14:
+//             {
+//                 BlockSptr aicg14_block(new Aicg14Block);
+//                 aicg14_block->read_block(ninfo_file);
+//                 blocks.push_back(aicg14_block);
+//                 block_readed = true;
+//                 break;
+//             }
+//             case N_AICGDIH:
+//             {
+//                 BlockSptr aicg_dih_block(new AicgdihBlock);
+//                 aicg_dih_block->read_block(ninfo_file);
+//                 blocks.push_back(aicg_dih_block);
+//                 block_readed = true;
+//                 break;
+//             }
+//             case N_CONTACT:
+//             {
+//                 BlockSptr contact_block(new ContactBlock);
+//                 contact_block->read_block(ninfo_file);
+//                 blocks.push_back(contact_block);
+//                 block_readed = true;
+//                 break;           
+//             }
+//             case N_BASEPAIR:
+//             {
+//                 BlockSptr basepair_block(new BasepairBlock);
+//                 basepair_block->read_block(ninfo_file);
+//                 blocks.push_back(basepair_block);
+//                 block_readed = true;
+//                 break;       
+//             }
+//             case N_BASESTACK:
+//             {
+//                 BlockSptr basestack_block(new BasestackBlock);
+//                 basestack_block->read_block(ninfo_file);
+//                 blocks.push_back(basestack_block);
+//                 block_readed = true;
+//                 break;           
+//             }
+//             case NO_BLOCK:
+//             {
+//                 std::cout << "Message: ninfo file reading is completed."
+//                           << std::endl;
+//                 std::cout << "         there are " << blocks.size()
+//                           << " blocks in the file.";
+//                 std::cout << std::endl;
+//                 return blocks;
+//             }
+//             default:
+//             {
+//                 std::cout << "File Reading Error: Unknown BlockType: " << btype
+//                           << std::endl;
+//                 break;
+//             }
+//
+//             }//switch_end
         }
         
-        std::cout << "Warning: while loop is exitted with some strange way." << std::endl;
+        std::cout << "Warning: while loop is exitted with some strange way."
+                  << std::endl;
         std::cout << "Message: ninfo file reading is completed." << std::endl;
-        std::cout << "         there are " << blocks.size() << " blocks in the file.";
+        std::cout << "         there are " << blocks.size()
+                  << " blocks in the file.";
         return blocks;
     }
 
@@ -151,8 +173,10 @@ namespace liberica
 
             if(!unknown)
             {
-                std::cout <<"unknown type line: probably not supported yet." << std::endl;
-                std::cout <<"this supports only bond, angl, dihd, contact, aicg13 and aicg2+dih"
+                std::cout << "unknown type line: probably not supported yet."
+                          << std::endl;
+                std::cout << "this supports only bond, angl, dihd, contact,"
+                          << " aicg13 and aicg2+dih"
                           << std::endl;
                 unknown = true;
             }
