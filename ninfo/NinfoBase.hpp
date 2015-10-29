@@ -18,6 +18,7 @@ namespace liberica
 
     public:
         LineBase(){}
+        virtual ~LineBase(){}
 
         virtual LineType readline(std::ifstream& file) = 0;
         virtual void read_stream(std::istream& is) = 0;
@@ -123,6 +124,8 @@ namespace liberica
 
     public:
         BlockBase(BlockType T): type(T){}
+        virtual ~BlockBase(){}
+
         void push_back(LineSptr line);
         BlockType get_BlockType() const { return type; }
         int size() const { return lines.size(); }

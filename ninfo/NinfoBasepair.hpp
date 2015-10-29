@@ -17,6 +17,8 @@ namespace liberica
             icon(0), iunit1(0), iunit2(0), imp1(0), imp2(0), 
             imp1un(0), imp2un(0), go_nat(0e0), factor_go(0e0),
             dummy_mgo(0e0), coef_go(0e0), bptype(), nhb_bp(0){}
+        ~BasepairLine(){}
+
         LineType readline(std::ifstream& file);
         void read_stream(std::istream& is);
         void write_stream(std::ostream& os);
@@ -123,6 +125,8 @@ namespace liberica
     {
     public:
         BasepairBlock(): BlockBase(N_BASEPAIR) {}
+        ~BasepairBlock(){}
+
         void write_block(std::ofstream& os);
         void read_block(std::ifstream& is);
     };

@@ -17,6 +17,8 @@ namespace liberica
             idih(0), iunit1(0), iunit2(0), imp1(0), imp2(0), imp3(0), imp4(0),
             imp1un(0), imp2un(0), imp3un(0), imp4un(0), dih_nat(0e0), factor_dih(0e0),
             correct_dih_mgo(0e0), coef_dih_1(0e0), coef_dih_3(0e0), dihtype(){}
+        ~DihdLine(){}
+
         LineType readline(std::ifstream& file);
         void read_stream(std::istream& is);
         void write_stream(std::ostream& os);
@@ -131,6 +133,8 @@ namespace liberica
     {
     public:
         DihdBlock(): BlockBase(N_DIHD) {}
+        ~DihdBlock(){}
+
         void write_block(std::ofstream& os);
         void read_block(std::ifstream& is);
     };

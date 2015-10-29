@@ -16,6 +16,8 @@ namespace liberica
             iba(0), iunit1(0), iunit2(0), imp1(0), imp2(0), imp3(0),
             imp1un(0), imp2un(0), imp3un(0), ba_nat(0e0), factor_ba(0e0),
             correct_ba_mgo(0e0), coef_ba(0e0), batype(){}
+        ~AnglLine(){}
+
         LineType readline(std::ifstream& file);
         void read_stream(std::istream& is);
         void write_stream(std::ostream& os);
@@ -125,6 +127,7 @@ namespace liberica
     {
     public:
         AnglBlock(): BlockBase(N_ANGL) {}
+        ~AnglBlock(){}
         void write_block(std::ofstream& os);
         void read_block(std::ifstream& is);
     };

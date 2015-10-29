@@ -16,6 +16,7 @@ namespace liberica
             ibd(0), iunit1(0), iunit2(0), imp1(0), imp2(0), 
             imp1un(0), imp2un(0), bd_nat(0e0), factor_bd(0e0),
             correct_bd_mgo(0e0), coef_bd(0e0), bdtype(){}
+        ~BondLine(){}
         LineType readline(std::ifstream& file);
         void read_stream(std::istream& is);
         void write_stream(std::ostream& os);
@@ -120,6 +121,7 @@ namespace liberica
     {
     public:
         BondBlock(): BlockBase(N_BOND) {}
+        ~BondBlock(){}
         void write_block(std::ofstream& os);
         void read_block(std::ifstream& is);
     };

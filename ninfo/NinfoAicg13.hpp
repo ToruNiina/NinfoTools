@@ -18,6 +18,8 @@ namespace liberica
             imp1un(0), imp2un(0), imp3un(0), aicg13_nat(0e0), factor_aicg13(0e0),
             correct_ba_mgo(0e0), coef_aicg13_gauss(0e0), wid_aicg13_gauss(0e0), batype()
         {}
+        ~Aicg13Line(){}
+
         LineType readline(std::ifstream& file);
         void read_stream(std::istream& is);
         void write_stream(std::ostream& os);
@@ -130,6 +132,8 @@ namespace liberica
     {
     public:
         Aicg13Block(): BlockBase(N_AICG13) {}
+        ~Aicg13Block(){}
+
         void write_block(std::ofstream& os);
         void read_block(std::ifstream& is);
     };
