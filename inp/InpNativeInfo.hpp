@@ -77,7 +77,8 @@ namespace liberica
             if(eq_ignorecase(line.substr(0,20), "<<<< native_info_sim"))
             {
                 read = true;
-                simN = std::atoi(&line[21]);
+                std::string temp(line, 20);
+                simN = std::stoi(temp);
                 read_block(inpfile);
             }
         }

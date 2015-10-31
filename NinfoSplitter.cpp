@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
             std::cout << "invalid option" << std::endl;
             return -1;
         }
-        N = atoi(argv[3]);
+        N = std::stoi(std::string(argv[3]));
     }
     
     NinfoReader reader(filename);
