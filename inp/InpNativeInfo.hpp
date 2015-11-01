@@ -36,15 +36,25 @@ namespace liberica
 
         int simN;
         STYLE style;
+        std::ifstream inpfile;
         std::map<std::pair<int, int>, std::string> ninfo_files;
        //if (all/all) -> pair(0,0)
 
     public:
 
-        InpNativeInfo(int N = 1): InpBase(), simN(N) {}
+        InpNativeInfo(int N = 1): InpBase(), simN(N)
+        {
+            ;
+        }
+        InpNativeInfo(const std::string& filename, int N = 1)
+            : InpBase(), simN(N), inpfile(filename)
+        {
+            ;
+        }
         ~InpNativeInfo(){}
 
-        bool read_file(std::string file_name);
+        bool read_file(const std::string& file_name);
+        bool read_file();
 
         std::map<std::pair<int, int>, std::string>& get_files()
         {
@@ -57,13 +67,51 @@ namespace liberica
 
     };
 
-    bool InpNativeInfo::read_file(std::string file_name)
+    bool InpNativeInfo::read_file(const std::string& file_name)
     {
         if(already_read)
             std::cout << "Warning: trying to substitute ninfo for already initiated object." 
                       << std::endl;
         already_read = true;
-        std::ifstream inpfile(file_name.c_str());
+
+        if(inpfile.is_open())
+        {
+            std::cout << "Warning: trying to re-open file named " << file_name
+                      << std::endl;
+        }
+        inpfile.open(file_name);
+        bool read(false);
+        
+        while(!inpfile.eof())
+        {
+            std::string line;
+            std::getline(inpfile, line);
+
+            if(line.empty()) continue;
+            if(line[0] == '\x2a') continue;
+
+            if(eq_ignorecase(line.substr(0,20), "<<<< native_info_sim"))
+            {
+                read = true;
+                std::string temp(line, 20);
+                simN = std::stoi(temp);
+                read_block(inpfile);
+            }
+        }
+        return read;
+    }
+
+    bool InpNativeInfo::read_file()
+    {
+        if(already_read)
+            std::cout << "Warning: trying to substitute ninfo for already initiated object." 
+                      << std::endl;
+        already_read = true;
+
+        if(!inpfile.good())
+        {
+            throw std::invalid_argument("file open error");
+        }
         bool read(false);
         
         while(!inpfile.eof())

@@ -1,5 +1,5 @@
-#ifndef NINFO_READER
-#define NINFO_READER
+#ifndef LIBERICA_NINFO_READER
+#define LIBERICA_NINFO_READER
 #include "NinfoFactory.hpp"
 
 namespace liberica
@@ -12,10 +12,21 @@ namespace liberica
             : block_readed(false),
               ninfo_file(filename.c_str()),
               factory()
-        {}
+        {
+            ;
+        }
+
+        NinfoReader()
+            : block_readed(false),
+              factory()
+        {
+            ;
+        }
+
         ~NinfoReader(){}
 
         std::vector<BlockSptr>& read_file();
+        std::vector<BlockSptr>& read_file(std::string filename);
         bool eof() const {return ninfo_file.eof();}
         void set_iunits(iUnits iunits);
 
@@ -35,6 +46,43 @@ namespace liberica
 
     std::vector<BlockSptr>& NinfoReader::read_file()
     {
+        while(!ninfo_file.eof())
+        {
+            BlockType btype(find_block(ninfo_file));
+            if(btype == NO_BLOCK)
+            {
+                std::cout << "Message: ninfo file reading is completed."
+                          << std::endl;
+                std::cout << "         there are " << blocks.size()
+                          << " blocks in the file.";
+                std::cout << std::endl;
+                return blocks;
+            }
+
+            BlockSptr ninfo_block(factory.create(btype));
+            ninfo_block->read_block(ninfo_file);
+            blocks.push_back(ninfo_block);
+            block_readed = true;
+        }
+        
+        std::cout << "Warning: while loop is exitted with some strange way."
+                  << std::endl;
+        std::cout << "Message: ninfo file reading is completed." << std::endl;
+        std::cout << "         there are " << blocks.size()
+                  << " blocks in the file.";
+        return blocks;
+    }
+
+    std::vector<BlockSptr>& NinfoReader::read_file(std::string filename)
+    {
+        if(ninfo_file.is_open())
+        {
+            std::cout << "Warning: ninfo file has been opened but" << std::endl;
+            std::cout << "       : trying to open new file." << std::endl;
+        }
+
+        ninfo_file.open(filename, std::ifstream::in);
+
         while(!ninfo_file.eof())
         {
             BlockType btype(find_block(ninfo_file));
@@ -156,4 +204,4 @@ namespace liberica
 
     typedef std::shared_ptr<NinfoReader> ReaderSptr;
 }
-#endif
+#endif //LIBERICA_NINFO_READER

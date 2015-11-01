@@ -40,15 +40,27 @@ namespace liberica
         std::string ninf_path;
         std::string aicg_path;
         std::string file_name;
+        std::ifstream inpfile;
         std::map<OUTPUT_TYPE, bool> outfiles;
         std::map<OUTPUT_TYPE, std::string> outnames;
 
     public:
 
-        InpFileName( int max = 100 ): InpBase(), BLOCK_MAX_LINE(max){}
+        InpFileName(int max = 100): InpBase(), BLOCK_MAX_LINE(max)
+        {
+            ;
+        }
+
+        InpFileName(const std::string& filename, int max = 100)
+            : InpBase(), BLOCK_MAX_LINE(max), inpfile(filename)
+        {
+            ;
+        }
+
         ~InpFileName(){}
 
-        bool read_file(std::string filename);
+        bool read_file(const std::string& filename);
+        bool read_file();
 
         std::string get_out_path() const {return out_path;}
         std::string get_para_path() const {return para_path;}
@@ -67,16 +79,55 @@ namespace liberica
         void set_output(std::istringstream& ls);
     };
 
-    bool InpFileName::read_file(std::string filename)
+    bool InpFileName::read_file(const std::string& filename)
     {
         if(already_read)
         {
             std::cout<<"Warning: trying to substitute filename for already object."<<std::endl;
         }
         already_read = true;
-        std::ifstream inpfile( filename.c_str() );
 
-        while(!inpfile.eof() )
+        if(inpfile.is_open())
+        {
+            std::cout << "Warning: trying to re-open file named "
+                      << filename << std::endl;
+        }
+
+        inpfile.open(filename.c_str());
+
+        while(!inpfile.eof())
+        {
+            std::string line;
+            std::getline(inpfile, line);
+
+            if(line.empty()) continue;
+            if(line[0] == '\x2a') continue;
+
+            if(line.substr(0, 14) == "<<<< filenames")
+            {
+                std::cout << "found block start line." << std::endl;
+                read_block(inpfile);
+            }
+            
+            return true;
+        }
+        return false;
+    }
+
+    bool InpFileName::read_file()
+    {
+        if(already_read)
+        {
+            std::cout<<"Warning: trying to substitute filename for already object."<<std::endl;
+        }
+        already_read = true;
+
+        if(!inpfile.good())
+        {
+            throw std::invalid_argument("input file is not defined");
+        }
+
+        while(!inpfile.eof())
         {
             std::string line;
             std::getline(inpfile, line);
@@ -271,21 +322,21 @@ namespace liberica
 
         std::map<OUTPUT_TYPE, bool>::iterator iter;
         iter = outfiles.find(PDB);
-        if(iter == outfiles.end() ) outfiles[PDB] = false;
+        if(iter == outfiles.end()) outfiles[PDB] = false;
         iter = outfiles.find(CRD);
-        if(iter == outfiles.end() ) outfiles[CRD] = false;
+        if(iter == outfiles.end()) outfiles[CRD] = false;
         iter = outfiles.find(VELO);
-        if(iter == outfiles.end() ) outfiles[VELO] = false;
+        if(iter == outfiles.end()) outfiles[VELO] = false;
         iter = outfiles.find(MOVIE);
-        if(iter == outfiles.end() ) outfiles[MOVIE] = false;
+        if(iter == outfiles.end()) outfiles[MOVIE] = false;
         iter = outfiles.find(DCD);
-        if(iter == outfiles.end() ) outfiles[DCD] = false;
+        if(iter == outfiles.end()) outfiles[DCD] = false;
         iter = outfiles.find(VDCD);
-        if(iter == outfiles.end() ) outfiles[VDCD] = false;
+        if(iter == outfiles.end()) outfiles[VDCD] = false;
         iter = outfiles.find(PSF);
-        if(iter == outfiles.end() ) outfiles[PSF] = false;
+        if(iter == outfiles.end()) outfiles[PSF] = false;
         iter = outfiles.find(RST);
-        if(iter == outfiles.end() ) outfiles[RST] = false;
+        if(iter == outfiles.end()) outfiles[RST] = false;
 
         return;
     }
@@ -319,15 +370,15 @@ namespace liberica
             os << "OUTPUT ";
             os << ifn.outfiles << std::endl;
         }
-        if(!ifn.para_path.empty() )
+        if(!ifn.para_path.empty())
             os << "path_para = " << ifn.para_path << std::endl;
-        if(!ifn.pdb_path.empty() )
+        if(!ifn.pdb_path.empty())
             os << "path_pdb = " << ifn.pdb_path << std::endl;
-        if(!ifn.ini_path.empty() )
+        if(!ifn.ini_path.empty())
             os << "path_ini = " << ifn.ini_path << std::endl;
-        if(!ifn.ninf_path.empty() )
+        if(!ifn.ninf_path.empty())
             os << "path_natinfo = " << ifn.ninf_path << std::endl;
-        if(!ifn.aicg_path.empty() )
+        if(!ifn.aicg_path.empty())
             os << "path_aicg = " << ifn.aicg_path << std::endl;
         os << ">>>>" << std::endl;
         return os;
