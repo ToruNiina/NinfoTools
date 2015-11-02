@@ -20,6 +20,7 @@ namespace liberica
             ~NinfoBlockFactory(){}
 
             BlockBase* create(const BlockType& block_t);
+            BlockSptr create_Sptr(const BlockType& block_t);
     };
 
     BlockBase* NinfoBlockFactory::create(const BlockType& block_t)
@@ -49,6 +50,34 @@ namespace liberica
                 return NULL;
         }
     }
+
+    BlockSptr NinfoBlockFactory::create_Sptr(const BlockType& block_t)
+    {
+        switch(block_t)
+        {
+            case N_BOND:
+                return BlockSptr(new BondBlock);
+            case N_ANGL:
+                return BlockSptr(new AnglBlock);
+            case N_DIHD:
+                return BlockSptr(new DihdBlock);
+            case N_AICG13:
+                return BlockSptr(new Aicg13Block);
+            case N_AICG14:
+                return BlockSptr(new Aicg14Block);
+            case N_AICGDIH:
+                return BlockSptr(new AicgdihBlock);
+            case N_CONTACT:
+                return BlockSptr(new ContactBlock);
+            case N_BASEPAIR:
+                return BlockSptr(new BasepairBlock);
+            case N_BASESTACK:
+                return BlockSptr(new BasestackBlock);
+            default:
+                throw std::invalid_argument("Factory: unknown blocktype");
+        }
+    }
+
 }//end namespace liberica
 
 #endif //LIBERICA_NBLOCK_FACTORY
