@@ -1,7 +1,10 @@
-##C++ CafeMol ninfo tool
+this repository was integrated into my new repository "Coffee-mill".
 
-CafeMolが出力するninfoファイルを取り扱うためのツール（まだ完全でないsplitterしかないが）。
-必要性を感じるか、感じなくても気が向いたら更新する予定。
+the latest version of this tool is available in the new repository.
+
+##CafeMol ninfo tool
+
+I wrote this out of necessity.
 
 liberica is a name of one of the coffee trees.
 
